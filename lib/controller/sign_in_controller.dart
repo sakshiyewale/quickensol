@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 import '../pages/home_page.dart';
 
 class SignInController extends GetxController {
@@ -19,14 +18,14 @@ class SignInController extends GetxController {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Sign In Successfully',style: TextStyle(fontSize: 14.sp),),
+              title: Text('Sign In Successfully'),
               actions: [
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignIn(context)),
+                      MaterialPageRoute(builder: (context) => HomePage()),
                     );
                   },
                   child: Text("OK"),
