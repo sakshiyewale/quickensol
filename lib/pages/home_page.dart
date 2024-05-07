@@ -70,7 +70,9 @@ class _HomePageState extends State<HomePage> {
                                 Text("Password: ${userMap['Pass']}"),
                                 SizedBox(height: 10,),
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
+                                    Text("Delete"),
                                     GestureDetector(
                                       onTap: () {
                                         homePageController.deleteUser(documentId);
@@ -79,7 +81,8 @@ class _HomePageState extends State<HomePage> {
                                         child: Icon(Icons.delete, color: ColorsForApp.headingPageColor,size: 25.sp,),
                                       ),
                                     ),
-                                    SizedBox(width: 10,),
+                                    SizedBox(width: 5.w,),
+                                    Text("Update"),
                                     GestureDetector(
                                       onTap: () {
                                         _showEditDialog(context, documentId, userMap['Email'], userMap['name'], userMap['Pass']);
