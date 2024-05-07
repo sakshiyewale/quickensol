@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Changed import to use GetX
-
+import 'package:get/get.dart';
 import 'package:quickensol/pages/home_page.dart';
+import 'package:quickensol/pages/sign_in_page.dart';
 
 class SignUpController extends GetxController {
   final TextEditingController emailController = TextEditingController();
@@ -12,23 +12,62 @@ class SignUpController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> signUp() async {
+  @override
+  void dispose() {
+    emailController.dispose();
+    nameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> signUp(BuildContext context) async {
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
 
-      // Create a user document in Firestore
       await _firestore.collection("User").doc(userCredential.user!.uid).set({
         'Email': emailController.text.toString(),
         'Pass': passwordController.text.toString(),
         'name': nameController.text.toString(),
       });
 
-      // Navigate to HomePage after successful sign-up using GetX navigation
-      Get.offAll(() => HomePage()); // Replaced Navigator.push with GetX navigation
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Registration  Successfully'),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Get.offAll(() => HomePage());
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
     } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error during sign up'),
+            content: Text('$e'),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
       print('Error during sign up: $e');
     }
   }

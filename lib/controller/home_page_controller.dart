@@ -18,3 +18,4 @@ class HomePageController extends GetxController {
     }
   }
 }
+

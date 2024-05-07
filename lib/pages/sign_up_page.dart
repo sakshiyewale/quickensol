@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quickensol/controller/sign_up_controller.dart';
 import 'package:quickensol/pages/home_page.dart';
+import 'package:quickensol/pages/sign_in_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -143,7 +145,7 @@ class _SignUpPageState extends State<SignUpPage> {
               buttonText: "Sign UP",
               onpressed: () {
                 if (loginKey.currentState!.validate()) {
-                  signUpController.signUp();
+                  signUpController.signUp(context);
                 }
               },
             ),
@@ -157,9 +159,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: TextHelper.size20.copyWith(fontSize: 12.sp, fontWeight: FontWeight.w600, color: Colors.black),
               ),
               SizedBox(width: 2.sp,),
-              Text(
-                "Sign in",
-                style: TextHelper.size20.copyWith(fontSize: 12.sp, fontWeight: FontWeight.w600, color: ColorsForApp.headingPageColor),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInPage()));
+                },
+                child: Text(
+                  "Sign in",
+                  style: TextHelper.size20.copyWith(fontSize: 12.sp, fontWeight: FontWeight.w600, color: ColorsForApp.headingPageColor),
+                ),
               )
             ],
           ),

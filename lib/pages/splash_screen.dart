@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quickensol/pages/sign_in_page.dart';
+import 'package:quickensol/utils/app_colors.dart';
+import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -44,10 +46,19 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: ScaleTransition(
-          scale: _animation,
-          child: Text("QuickEnSol"),
+      body: Container(
+        height: 100.h,
+        width: 100.w,
+        decoration: BoxDecoration(
+          color: ColorsForApp.headingPageColor
+        ),
+        child: Center(
+          child: ScaleTransition(
+            scale: _animation,
+            child: Text("QuickenSol",style: TextStyle(
+              fontSize: 25.sp,fontWeight: FontWeight.w400,color: Colors.white
+            ),),
+          ),
         ),
       ),
     );

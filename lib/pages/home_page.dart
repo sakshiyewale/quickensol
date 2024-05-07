@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sizer/sizer.dart';
 
 import '../controller/home_page_controller.dart';
 import '../utils/app_colors.dart';
@@ -17,13 +18,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomePageController homePageController = Get.find<HomePageController>();
-
+  final HomePageController homePageController = Get.put(HomePageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Center(child: Text('Home',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 18.sp),)),
+        backgroundColor: ColorsForApp.headingPageColor,
       ),
       body: Column(
         children: [
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                       Map<String, dynamic> userMap = snapshot.data!.docs[index].data() as Map<String, dynamic>;
                       String documentId = snapshot.data!.docs[index].id; // Get document ID
                       return Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
+                        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                         homePageController.deleteUser(documentId);
                                       },
                                       child: Container(
-                                        child: Icon(Icons.delete, color: ColorsForApp.headingPageColor),
+                                        child: Icon(Icons.delete, color: ColorsForApp.headingPageColor,size: 25.sp,),
                                       ),
                                     ),
                                     SizedBox(width: 10,),
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                                         _showEditDialog(context, documentId, userMap['Email'], userMap['name'], userMap['Pass']);
                                       },
                                       child: Container(
-                                        child: Icon(Icons.edit, color: ColorsForApp.headingPageColor),
+                                        child: Icon(Icons.edit, color: ColorsForApp.headingPageColor,size: 25.sp,),
                                       ),
                                     ),
                                   ],
